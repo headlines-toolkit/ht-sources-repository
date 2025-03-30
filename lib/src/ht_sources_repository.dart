@@ -33,7 +33,8 @@ class HtSourcesRepository {
       // Log the stack trace st if needed
       // Wrap unexpected errors in the defined failure type
       throw SourceCreateFailure(
-          'An unexpected error occurred during source creation: $e',);
+        'An unexpected error occurred during source creation: $e',
+      );
     }
   }
 
@@ -52,7 +53,8 @@ class HtSourcesRepository {
     } catch (e) {
       // Log the stack trace st if needed
       throw SourceFetchFailure(
-          'An unexpected error occurred fetching source $id: $e',);
+        'An unexpected error occurred fetching source $id: $e',
+      );
     }
   }
 
@@ -69,7 +71,8 @@ class HtSourcesRepository {
     } catch (e) {
       // Log the stack trace st if needed
       throw SourceFetchFailure(
-          'An unexpected error occurred fetching sources: $e',);
+        'An unexpected error occurred fetching sources: $e',
+      );
     }
   }
 
@@ -91,7 +94,8 @@ class HtSourcesRepository {
     } catch (e) {
       // Log the stack trace st if needed
       throw SourceUpdateFailure(
-          'An unexpected error occurred updating source ${source.id}: $e',);
+        'An unexpected error occurred updating source ${source.id}: $e',
+      );
     }
   }
 
@@ -110,7 +114,8 @@ class HtSourcesRepository {
     } catch (e) {
       // Log the stack trace st if needed
       throw SourceDeleteFailure(
-          'An unexpected error occurred deleting source $id: $e',);
+        'An unexpected error occurred deleting source $id: $e',
+      );
     }
   }
 }

@@ -1,4 +1,4 @@
-/// A Very Good Project created by Very Good CLI.
+/// ZRepository that manages news sources data.
 library;
 
 export 'src/ht_sources_repository.dart';
