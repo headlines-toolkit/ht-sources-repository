@@ -52,11 +52,20 @@ final mockSourcesClient = MockHtSourcesClient();
 // Instantiate the repository
 final sourcesRepository = HtSourcesRepository(sourcesClient: mockSourcesClient);
 
-// Example: Fetching all sources
+// Example: Fetching sources (now returns PaginatedResponse)
 Future<void> fetchSources() async {
   try {
-    final sources = await sourcesRepository.getSources();
+    // getSources now returns a PaginatedResponse
+    final paginatedResult = await sourcesRepository.getSources(limit: 10); // Example with limit
+    final sources = paginatedResult.items; // Access the list of sources
+    final cursor = paginatedResult.cursor; // ID of the last item for next page
+    final hasMore = paginatedResult.hasMore; // Indicates if more pages exist
+
     print('Fetched ${sources.length} sources.');
+    if (hasMore) {
+      print('More sources available. Next cursor: $cursor');
+      // You can call getSources again with startAfterId: cursor to get the next page
+    }
     // Process the sources...
   } on SourceFetchFailure catch (e) {
     print('Error fetching sources: ${e.message}');
