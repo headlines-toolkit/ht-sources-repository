@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  ht_shared:
+    git:
+      url: https://github.com/headlines-toolkit/ht-shared
   ht_sources_client:
     git:
       url: https://github.com/headlines-toolkit/ht-sources-client.git
