@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'package:ht_sources_client/ht_sources_client.dart'; // Assuming client/models are in this package
+import 'package:ht_shared/ht_shared.dart';
+import 'package:ht_sources_client/ht_sources_client.dart';
 
 /// {@template ht_sources_repository}
 /// A repository that manages news sources data.
@@ -28,10 +29,9 @@ class HtSourcesRepository {
     try {
       return await _sourcesClient.createSource(source: source);
     } on SourceCreateFailure {
-      rethrow; // Re-throw the specific exception from the client
+      rethrow;
     } catch (e) {
-      // Log the stack trace st if needed
-      // Wrap unexpected errors in the defined failure type
+      // Consider logging the error or stack trace here
       throw SourceCreateFailure(
         'An unexpected error occurred during source creation: $e',
       );
@@ -51,25 +51,52 @@ class HtSourcesRepository {
     } on SourceFetchFailure {
       rethrow;
     } catch (e) {
-      // Log the stack trace st if needed
+      // Consider logging the error or stack trace here
       throw SourceFetchFailure(
         'An unexpected error occurred fetching source $id: $e',
       );
     }
   }
 
-  /// Retrieves a list of all available news sources using the injected client.
+  /// Retrieves a list of available news sources using the injected client,
+  /// supporting pagination.
   ///
-  /// Returns an empty list if no sources are available.
+  /// [limit]: An optional parameter to specify the maximum number of sources
+  ///          to fetch in this request.
+  /// [startAfterId]: An optional parameter to fetch sources after the one
+  ///                 with the specified ID for pagination.
+  ///
+  /// Returns a `PaginatedResponse<Source>` containing the list of sources
+  /// for the current page, a cursor for the next page, and a flag indicating
+  /// if more pages are available.
   /// Throws a [SourceFetchFailure] if the fetch operation fails in the client.
   /// Rethrows any other exceptions encountered during the process wrapped in [SourceFetchFailure].
-  Future<List<Source>> getSources() async {
+  Future<PaginatedResponse<Source>> getSources({
+    int? limit,
+    String? startAfterId,
+  }) async {
     try {
-      return await _sourcesClient.getSources();
+      final sources = await _sourcesClient.getSources(
+        limit: limit,
+        startAfterId: startAfterId,
+      );
+
+      // Determine if there are more items based on the limit.
+      final hasMore = limit != null && sources.length == limit;
+
+      // Determine the cursor for the next page.
+      // Use the ID of the last item if there are more items and the list isn't empty.
+      final cursor = hasMore && sources.isNotEmpty ? sources.last.id : null;
+
+      return PaginatedResponse<Source>(
+        items: sources,
+        cursor: cursor,
+        hasMore: hasMore,
+      );
     } on SourceFetchFailure {
       rethrow;
     } catch (e) {
-      // Log the stack trace st if needed
+      // Consider logging the error or stack trace here
       throw SourceFetchFailure(
         'An unexpected error occurred fetching sources: $e',
       );
@@ -92,7 +119,7 @@ class HtSourcesRepository {
     } on SourceUpdateFailure {
       rethrow;
     } catch (e) {
-      // Log the stack trace st if needed
+      // Consider logging the error or stack trace here
       throw SourceUpdateFailure(
         'An unexpected error occurred updating source ${source.id}: $e',
       );
@@ -112,7 +139,7 @@ class HtSourcesRepository {
     } on SourceDeleteFailure {
       rethrow;
     } catch (e) {
-      // Log the stack trace st if needed
+      // Consider logging the error or stack trace here
       throw SourceDeleteFailure(
         'An unexpected error occurred deleting source $id: $e',
       );
