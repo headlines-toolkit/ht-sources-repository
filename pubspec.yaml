@@ -1,6 +1,6 @@
 name: ht_sources_repository
 description: Repository that manages news sources data.
-repository: https://github.com/headlines-toolkit/ht-sources-firstore
+repository: https://github.com/headlines-toolkit/ht-sources-repository
 publish_to: none
 
 environment:
