@@ -12,9 +12,8 @@ import 'package:ht_sources_client/ht_sources_client.dart';
 class HtSourcesRepository {
   /// {@macro ht_sources_repository}
   /// Requires an instance of [HtSourcesClient] to interact with the data source.
-  const HtSourcesRepository({
-    required HtSourcesClient sourcesClient,
-  }) : _sourcesClient = sourcesClient;
+  const HtSourcesRepository({required HtSourcesClient sourcesClient})
+    : _sourcesClient = sourcesClient;
 
   final HtSourcesClient _sourcesClient;
 
