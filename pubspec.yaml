@@ -12,7 +12,7 @@ dependencies:
       url: https://github.com/headlines-toolkit/ht-shared
   ht_sources_client:
     git:
-      url: https://github.com/headlines-toolkit/ht-sources-client.git
+      url: https://github.com/headlines-toolkit/ht-sources-client
 
 dev_dependencies:
   mocktail: ^1.0.4
