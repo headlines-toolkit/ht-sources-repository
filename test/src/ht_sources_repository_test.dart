@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, lines_longer_than_80_chars, prefer_const_literals_to_create_immutables
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:ht_shared/ht_shared.dart';
 import 'package:ht_sources_client/ht_sources_client.dart';
 import 'package:ht_sources_repository/ht_sources_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
 
 // Create a mock class for HtSourcesClient
 class MockHtSourcesClient extends Mock implements HtSourcesClient {}
