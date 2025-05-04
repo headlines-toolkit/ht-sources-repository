@@ -1,5 +1,7 @@
 # ht_sources_repository
 
+> **Note:** This package is being archived. Please use the successor package [`ht-data-repository`](https://github.com/headlines-toolkit/ht-data-repository) instead.
+
 A Dart package providing a repository layer for managing news sources data. It acts as an intermediary between the application's business logic and a data source client (`HtSourcesClient`).
 
 ## Features
